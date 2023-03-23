@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "pledgeball-org"
+  },
+  "targets": {
+    "pledgeball-org": {
+      "hosting": {
+        "survey": [
+          "pledgeball-survey"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

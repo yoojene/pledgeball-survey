@@ -5,9 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Button from '@mui/material/Button/Button';
 import Footer from './components/Footer/Footer';
-import Survey from './components/Survey/Survey';
+import { initializeApp } from 'firebase/app';
+
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+  apiKey: 'AIzaSyAjXxGN2ipPe7dOUBhoB-38SUpLWPncv0M',
+  authDomain: 'pledgeball-org.firebaseapp.com',
+  databaseURL: 'https://pledgeball-org.firebaseio.com',
+  projectId: 'pledgeball-org',
+  storageBucket: 'pledgeball-org.appspot.com',
+  messagingSenderId: '274541014837',
+  appId: '1:274541014837:web:456740adb9be4d928fa67c',
+};
+const app = initializeApp(firebaseConfig);
 
 const router = createBrowserRouter([
   {
