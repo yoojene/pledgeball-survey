@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { initializeApp } from 'firebase/app';
+import Survey from './components/Survey/Survey';
+import { FirebaseAppProvider } from 'reactfire';
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -20,59 +22,63 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-  },
-  {
-    path: '/survey-one',
-    element: (
-      <div className="App">
-        <Header></Header>
-        <h1>First page</h1>
-
-        <Footer route={'/survey-two'} title={'Next'}></Footer>
-      </div>
-    ),
-  },
-  {
-    path: '/survey-two',
-    element: (
-      <div className="App">
-        <Header></Header>
-        <h1>second page</h1>
-        <Footer route={'/survey-three'} title={'Next'}></Footer>
-      </div>
-    ),
-  },
-  {
-    path: '/survey-three',
-    element: (
-      <div className="App">
-        <Header></Header>
-        <h1>third page</h1>
-        <Footer route={'/finish'} title={'Finish'}></Footer>
-      </div>
-    ),
-  },
-  {
-    path: '/finish',
-    element: (
-      <div className="App">
-        <Header></Header>
-        <h1>All Done</h1>
-        <Footer route={'/'} title={'Start Again?'}></Footer>
-      </div>
-    ),
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//     children: [
+//       {
+//         path: "survey-one",
+//         element: (
+//           <div className="App">
+//             <Header></Header>
+//             <h1>First page</h1>
+//             <Survey></Survey>
+//             <Footer route={"/survey-two"} title={"Next"}></Footer>
+//           </div>
+//         ),
+//       },
+//       {
+//         path: "survey-two",
+//         element: (
+//           <div className="App">
+//             <Header></Header>
+//             <h1>second page</h1>
+//             <Footer route={"/survey-three"} title={"Next"}></Footer>
+//           </div>
+//         ),
+//       },
+//       {
+//         path: "survey-three",
+//         element: (
+//           <div className="App">
+//             <Header></Header>
+//             <h1>third page</h1>
+//             <Footer route={"/finish"} title={"Finish"}></Footer>
+//           </div>
+//         ),
+//       },
+//       {
+//         path: "finish",
+//         element: (
+//           <div className="App">
+//             <Header></Header>
+//             <h1>All Done</h1>
+//             <Footer route={"/"} title={"Start Again?"}></Footer>
+//           </div>
+//         ),
+//       },
+//     ],
+//   },
+// ]);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+      <App />
+    </FirebaseAppProvider>
   </React.StrictMode>
 );
 
