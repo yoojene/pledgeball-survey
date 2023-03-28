@@ -1,13 +1,14 @@
-import { getFirestore } from "firebase/firestore/lite";
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { FirestoreProvider, useFirebaseApp } from "reactfire";
-import "./App.css";
-import Footer from "./components/Footer/Footer";
+import { Button } from '@mui/material';
+import { getFirestore } from 'firebase/firestore/lite';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { FirestoreProvider, useFirebaseApp } from 'reactfire';
+import './App.css';
+import Footer from './components/Footer/Footer';
 
-import Header from "./components/Header/Header";
-import Home from "./components/Home/Home";
-import Survey from "./components/Survey/Survey";
+import Header from './components/Header/Header';
+import Home from './components/Home/Home';
+import Survey from './components/Survey/Survey';
 
 function App() {
   const app = useFirebaseApp();
@@ -24,9 +25,8 @@ function App() {
             element={
               <div className="App">
                 <Header />
-                <h1>first page</h1>
                 <Survey />
-                <Footer route={"/survey/2"} title={"Next"}></Footer>
+                <Footer route={'/survey/2'} title={'Next'}></Footer>
               </div>
             }
           />
@@ -35,9 +35,8 @@ function App() {
             element={
               <div className="App">
                 <Header />
-                <h1>second page</h1>
                 <Survey />
-                <Footer route={"/survey/3"} title={"Next"}></Footer>
+                <Footer route={'/survey/3'} title={'Next'}></Footer>
               </div>
             }
           />
@@ -46,9 +45,8 @@ function App() {
             element={
               <div className="App">
                 <Header></Header>
-                <h1>third page</h1>
                 <Survey />
-                <Footer route={"/finish"} title={"Finish"}></Footer>
+                <Footer route={'/finish'} title={'Finish'}></Footer>
               </div>
             }
           />
@@ -57,9 +55,19 @@ function App() {
             element={
               <div className="App">
                 <Header></Header>
-                <h1>All Done</h1>
-                <Survey />
-                <Footer route={"/"} title={"Start Again?"}></Footer>
+                <h1>All Done, submit your answers?</h1>
+                {/* <Survey /> */}
+                <div className="buttons">
+                  <Button
+                    className={'submit-button'}
+                    variant="contained"
+                    onClick={() => console.log('submit data')}
+                  >
+                    Submit Answers
+                  </Button>
+
+                  <Footer route={'/'} title={'Start Again?'}></Footer>
+                </div>
               </div>
             }
           />
