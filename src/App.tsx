@@ -1,18 +1,18 @@
-import { Button } from "@mui/material";
-import { getFirestore } from "firebase/firestore/lite";
-import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { FirestoreProvider, useFirebaseApp } from "reactfire";
-import "./App.css";
-import Footer from "./components/Footer/Footer";
+import { Button } from '@mui/material';
+import { getFirestore } from 'firebase/firestore/lite';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { FirestoreProvider, useFirebaseApp } from 'reactfire';
+import './App.css';
+import Footer from './components/Footer/Footer';
 
-import Header from "./components/Header/Header";
-import Home from "./components/Home/Home";
-import Survey from "./components/Survey/Survey";
+import Header from './components/Header/Header';
+import Home from './components/Home/Home';
+import Survey from './components/Survey/Survey';
 
 function App() {
   const [surveyAnswer, setSurveyAnswer] = useState<
-    { question: string; value: string }[] | []
+    { question: string; value: number }[] | []
   >([]);
 
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -25,11 +25,10 @@ function App() {
     setDisabled(true);
   };
 
-  const handleSliderChange = (question: string, slider: string) => {
+  const handleQuestionFinished = (question: string, slider: number) => {
     setSurveyAnswer([...surveyAnswer, ...[{ question, value: slider }]]);
-    setDisabled(false);
+    // setDisabled(false);
   };
-
   return (
     <FirestoreProvider sdk={firestore}>
       <BrowserRouter>
@@ -40,11 +39,11 @@ function App() {
             element={
               <div className="App">
                 <Header />
-                <Survey sliderChanged={handleSliderChange} />
+                <Survey questionFinished={handleQuestionFinished} />
                 <Footer
-                  route={"/survey/2"}
-                  title={"Next"}
-                  footerClicked={() => handleFooterClicked("survey/2")}
+                  route={'/survey/2'}
+                  title={'Next'}
+                  footerClicked={() => handleFooterClicked('survey/2')}
                   disabled={disabled}
                 ></Footer>
               </div>
@@ -55,10 +54,10 @@ function App() {
             element={
               <div className="App">
                 <Header />
-                <Survey sliderChanged={handleSliderChange} />
+                <Survey questionFinished={handleQuestionFinished} />
                 <Footer
-                  route={"/survey/3"}
-                  title={"Next"}
+                  route={'/survey/3'}
+                  title={'Next'}
                   disabled={disabled}
                 ></Footer>
               </div>
@@ -69,8 +68,8 @@ function App() {
             element={
               <div className="App">
                 <Header></Header>
-                <Survey sliderChanged={handleSliderChange} />
-                <Footer route={"/finish"} title={"Finish"}></Footer>
+                <Survey questionFinished={handleQuestionFinished} />
+                <Footer route={'/finish'} title={'Finish'}></Footer>
               </div>
             }
           />
@@ -83,7 +82,7 @@ function App() {
                 {/* <Survey /> */}
                 <div className="buttons">
                   <Button
-                    className={"submit-button"}
+                    className={'submit-button'}
                     variant="contained"
                     onClick={() => console.log(surveyAnswer)}
                   >
@@ -91,8 +90,8 @@ function App() {
                   </Button>
 
                   <Footer
-                    route={"/"}
-                    title={"Start Again?"}
+                    route={'/'}
+                    title={'Start Again?'}
                     footerClicked={() => setSurveyAnswer([])}
                   ></Footer>
                 </div>

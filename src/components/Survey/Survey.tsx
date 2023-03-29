@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import { doc, getDoc } from "firebase/firestore/lite";
-import { useFirestore } from "reactfire";
-import Slider from "@mui/material/Slider";
-import "./Survey.css";
-import { useSurveyData } from "../../hooks/useSurveyData";
-import { useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore/lite';
+import { useFirestore } from 'reactfire';
+import Slider from '@mui/material/Slider';
+import './Survey.css';
+import { useSurveyData } from '../../hooks/useSurveyData';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 interface SurveyProps {
   sliderChanged?: (question: string, value: string) => void;
+  questionFinished: (question: string, value: number) => void;
 }
-const Survey: React.FC<SurveyProps> = ({ sliderChanged }) => {
+const Survey: React.FC<SurveyProps> = ({ sliderChanged, questionFinished }) => {
   const [question, setQuestion] = useState<string | undefined>();
+  const navigate = useNavigate();
 
   const [sliderValue, setSliderValue] = useState<number>(0);
 
@@ -20,15 +23,19 @@ const Survey: React.FC<SurveyProps> = ({ sliderChanged }) => {
   const location = useLocation();
 
   let document;
-  if (location.pathname.endsWith("1")) {
-    document = "question-1";
-  } else if (location.pathname.endsWith("2")) {
-    document = "question-2";
+  let nextRoute: string;
+  if (location.pathname.endsWith('1')) {
+    document = 'question-1';
+    nextRoute = '/survey/2';
+  } else if (location.pathname.endsWith('2')) {
+    document = 'question-2';
+    nextRoute = '/survey/3';
   } else {
-    document = "question-3";
+    document = 'question-3';
+    nextRoute = '/survey/3';
   }
 
-  const questionsRef = doc(firestore, "survey-questions", document);
+  const questionsRef = doc(firestore, 'survey-questions', document);
 
   getDoc(questionsRef).then((res) => {
     setQuestion(res.data()!.question);
@@ -58,6 +65,16 @@ const Survey: React.FC<SurveyProps> = ({ sliderChanged }) => {
           onChange={handleOnChange}
         />
       </div>
+      <Button
+        variant="contained"
+        onClick={() => {
+          navigate(nextRoute);
+          questionFinished(question!, sliderValue);
+          setSliderValue(0);
+        }}
+      >
+        Survey next
+      </Button>
     </>
   );
 };
