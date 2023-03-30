@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import "./scss/index.scss";
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -20,57 +21,8 @@ const firebaseConfig = {
   messagingSenderId: '274541014837',
   appId: '1:274541014837:web:456740adb9be4d928fa67c',
 };
-const app = initializeApp(firebaseConfig);
+ initializeApp(firebaseConfig);
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <App />,
-//     children: [
-//       {
-//         path: "survey-one",
-//         element: (
-//           <div className="App">
-//             <Header></Header>
-//             <h1>First page</h1>
-//             <Survey></Survey>
-//             <Footer route={"/survey-two"} title={"Next"}></Footer>
-//           </div>
-//         ),
-//       },
-//       {
-//         path: "survey-two",
-//         element: (
-//           <div className="App">
-//             <Header></Header>
-//             <h1>second page</h1>
-//             <Footer route={"/survey-three"} title={"Next"}></Footer>
-//           </div>
-//         ),
-//       },
-//       {
-//         path: "survey-three",
-//         element: (
-//           <div className="App">
-//             <Header></Header>
-//             <h1>third page</h1>
-//             <Footer route={"/finish"} title={"Finish"}></Footer>
-//           </div>
-//         ),
-//       },
-//       {
-//         path: "finish",
-//         element: (
-//           <div className="App">
-//             <Header></Header>
-//             <h1>All Done</h1>
-//             <Footer route={"/"} title={"Start Again?"}></Footer>
-//           </div>
-//         ),
-//       },
-//     ],
-//   },
-// ]);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

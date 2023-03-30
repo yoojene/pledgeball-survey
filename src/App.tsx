@@ -3,7 +3,7 @@ import { getFirestore } from 'firebase/firestore/lite';
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import { FirestoreProvider, useFirebaseApp } from 'reactfire';
-import './App.css';
+import './App.scss';
 import Footer from './components/Footer/Footer';
 
 import Header from './components/Header/Header';
@@ -15,15 +15,12 @@ function App() {
     { question: string; value: number }[] | []
   >([]);
 
-  const [disabled, setDisabled] = useState<boolean>(true);
 
   const app = useFirebaseApp();
 
   const firestore = getFirestore(app);
 
-  const handleFooterClicked = (route: string) => {
-    setDisabled(true);
-  };
+
 
   const handleQuestionFinished = (question: string, slider: number) => {
     setSurveyAnswer([...surveyAnswer, ...[{ question, value: slider }]]);
@@ -40,12 +37,6 @@ function App() {
               <div className="App">
                 <Header />
                 <Survey questionFinished={handleQuestionFinished} />
-                <Footer
-                  route={'/survey/2'}
-                  title={'Next'}
-                  footerClicked={() => handleFooterClicked('survey/2')}
-                  disabled={disabled}
-                ></Footer>
               </div>
             }
           />
@@ -55,11 +46,6 @@ function App() {
               <div className="App">
                 <Header />
                 <Survey questionFinished={handleQuestionFinished} />
-                <Footer
-                  route={'/survey/3'}
-                  title={'Next'}
-                  disabled={disabled}
-                ></Footer>
               </div>
             }
           />
@@ -69,7 +55,6 @@ function App() {
               <div className="App">
                 <Header></Header>
                 <Survey questionFinished={handleQuestionFinished} />
-                <Footer route={'/finish'} title={'Finish'}></Footer>
               </div>
             }
           />
@@ -79,7 +64,6 @@ function App() {
               <div className="App">
                 <Header></Header>
                 <h1>All Done, submit your answers?</h1>
-                {/* <Survey /> */}
                 <div className="buttons">
                   <Button
                     className={'submit-button'}
@@ -88,7 +72,6 @@ function App() {
                   >
                     Submit Answers
                   </Button>
-
                   <Footer
                     route={'/'}
                     title={'Start Again?'}
