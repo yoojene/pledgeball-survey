@@ -1,7 +1,6 @@
-import { Button } from "@mui/material";
 import { collection, addDoc, getFirestore } from "firebase/firestore/lite";
 import { useState } from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { FirestoreProvider, useFirebaseApp } from "reactfire";
 import "./App.scss";
 import Footer from "./components/Footer/Footer";
@@ -14,9 +13,6 @@ function App() {
   const [surveyAnswer, setSurveyAnswer] = useState<
     { question: string; value: number }[] | []
   >([]);
-
-
-    // const navigate = useNavigate();
 
   const app = useFirebaseApp();
 
