@@ -1,31 +1,41 @@
-import { Button } from '@mui/material';
-import { getFirestore } from 'firebase/firestore/lite';
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import { FirestoreProvider, useFirebaseApp } from 'reactfire';
-import './App.scss';
-import Footer from './components/Footer/Footer';
+import { Button } from "@mui/material";
+import { collection, addDoc, getFirestore } from "firebase/firestore/lite";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { FirestoreProvider, useFirebaseApp } from "reactfire";
+import "./App.scss";
+import Footer from "./components/Footer/Footer";
 
-import Header from './components/Header/Header';
-import Home from './components/Home/Home';
-import Survey from './components/Survey/Survey';
+import Header from "./components/Header/Header";
+import Home from "./components/Home/Home";
+import Survey from "./components/Survey/Survey";
 
 function App() {
   const [surveyAnswer, setSurveyAnswer] = useState<
     { question: string; value: number }[] | []
   >([]);
 
-
   const app = useFirebaseApp();
 
   const firestore = getFirestore(app);
 
-
-
   const handleQuestionFinished = (question: string, slider: number) => {
     setSurveyAnswer([...surveyAnswer, ...[{ question, value: slider }]]);
-    // setDisabled(false);
   };
+
+  const handleSubmitAnswers = async () => {
+    console.log(surveyAnswer);
+    surveyAnswer.forEach(async (ans) => {
+      const docRef = await addDoc(collection(firestore, "survey-answers"), ans);
+
+      console.log("Answer written with ID: " + docRef.id);
+    });
+  };
+
+  const handleSurveyFinished = () => {
+    setSurveyAnswer([]);
+  };
+
   return (
     <FirestoreProvider sdk={firestore}>
       <BrowserRouter>
@@ -71,15 +81,15 @@ function App() {
                     className={"submit-button"}
                     variant="contained"
                     size="large"
-                    onClick={() => console.log(surveyAnswer)}
+                    onClick={handleSubmitAnswers}
                   >
                     Submit Answers
                   </Button>
-               
+
                   <Footer
                     route={"/"}
                     title={"Start Again?"}
-                    footerClicked={() => setSurveyAnswer([])}
+                    footerClicked={handleSurveyFinished}
                   ></Footer>
                 </div>
               </div>
