@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <div className="App">
       <Header></Header>
-      <h1>Welcome to the survey</h1>
+      <div className="title">
+        <h1>Welcome to the survey</h1>
+      </div>
       <Footer route={"/survey/1"} title={"Start"}></Footer>
     </div>
   );

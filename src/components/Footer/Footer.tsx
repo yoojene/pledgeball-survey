@@ -21,6 +21,7 @@ const Footer: React.FC<FooterProps> = ({
     <div className="footer">
       <Button
         variant="contained"
+        size="large"
         onClick={() => {
           navigate(route);
           if (footerClicked) {

@@ -51,7 +51,6 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
   return (
     <>
       <div className="question-header"> 
-      
         <h1>{question}</h1>
       </div>
 

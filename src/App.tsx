@@ -63,18 +63,22 @@ function App() {
             element={
               <div className="App">
                 <Header></Header>
-                <h1>All Done, submit your answers?</h1>
+                <div className="title">
+                  <h1>All Done, submit your answers?</h1>
+                </div>
                 <div className="buttons">
                   <Button
-                    className={'submit-button'}
+                    className={"submit-button"}
                     variant="contained"
+                    size="large"
                     onClick={() => console.log(surveyAnswer)}
                   >
                     Submit Answers
                   </Button>
+               
                   <Footer
-                    route={'/'}
-                    title={'Start Again?'}
+                    route={"/"}
+                    title={"Start Again?"}
                     footerClicked={() => setSurveyAnswer([])}
                   ></Footer>
                 </div>
