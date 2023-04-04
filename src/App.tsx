@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { collection, addDoc, getFirestore } from "firebase/firestore/lite";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { FirestoreProvider, useFirebaseApp } from "reactfire";
 import "./App.scss";
@@ -14,6 +14,9 @@ function App() {
   const [surveyAnswer, setSurveyAnswer] = useState<
     { question: string; value: number }[] | []
   >([]);
+
+
+    // const navigate = useNavigate();
 
   const app = useFirebaseApp();
 
@@ -30,6 +33,7 @@ function App() {
 
       console.log("Answer written with ID: " + docRef.id);
     });
+    setSurveyAnswer([]);
   };
 
   const handleSurveyFinished = () => {
@@ -77,15 +81,11 @@ function App() {
                   <h1>All Done, submit your answers?</h1>
                 </div>
                 <div className="buttons">
-                  <Button
-                    className={"submit-button"}
-                    variant="contained"
-                    size="large"
-                    onClick={handleSubmitAnswers}
-                  >
-                    Submit Answers
-                  </Button>
-
+                  <Footer
+                    route={"/"}
+                    title={"Submit Answers?"}
+                    footerClicked={handleSubmitAnswers}
+                  ></Footer>
                   <Footer
                     route={"/"}
                     title={"Start Again?"}
