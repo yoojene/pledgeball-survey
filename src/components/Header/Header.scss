@@ -1,6 +1,10 @@
 .logo {
   height: 5vmin;
   pointer-events: none;
+
+  @media only screen and (max-width: 834px) {
+      height: 10vmin;
+  }
 }
 
 
