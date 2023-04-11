@@ -8,11 +8,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 interface SurveyProps {
-  questionFinished: (question: string, value: number) => void;
+  questionFinished: (questionId: string, question: string, value: number) => void;
 }
 const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
   const [question, setQuestion] = useState<string | undefined>();
-    const [disabled, setDisabled] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
   const firestore = useFirestore();
   const location = useLocation();
 
-  let document;
+  let document: string;
   let nextRoute: string;
   if (location.pathname.endsWith('1')) {
     document = 'question-1';
@@ -71,8 +71,9 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
         size="large"
         onClick={() => {
           navigate(nextRoute);
-          questionFinished(question!, sliderValue);
+          questionFinished(document, question!, sliderValue);
           setSliderValue(0);
+          setDisabled(true)
         }}
         disabled={disabled}
       >

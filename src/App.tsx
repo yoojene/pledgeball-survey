@@ -11,15 +11,15 @@ import Survey from "./components/Survey/Survey";
 
 function App() {
   const [surveyAnswer, setSurveyAnswer] = useState<
-    { question: string; value: number }[] | []
+    { questionId: string, question: string; value: number }[] | []
   >([]);
 
   const app = useFirebaseApp();
 
   const firestore = getFirestore(app);
 
-  const handleQuestionFinished = (question: string, slider: number) => {
-    setSurveyAnswer([...surveyAnswer, ...[{ question, value: slider }]]);
+  const handleQuestionFinished = (questionId: string, question: string, slider: number) => {
+    setSurveyAnswer([...surveyAnswer, ...[{ questionId, question, value: slider }]]);
   };
 
   const handleSubmitAnswers = async () => {
@@ -46,7 +46,7 @@ function App() {
             element={
               <div className="App">
                 <Header />
-                <Survey questionFinished={handleQuestionFinished} />
+              <Survey questionFinished={handleQuestionFinished} />
               </div>
             }
           />
