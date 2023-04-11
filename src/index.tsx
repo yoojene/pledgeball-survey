@@ -4,11 +4,7 @@ import "./scss/index.scss";
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
 import { initializeApp } from 'firebase/app';
-import Survey from './components/Survey/Survey';
 import { FirebaseAppProvider } from 'reactfire';
 
 // TODO: Replace the following with your app's Firebase project configuration
