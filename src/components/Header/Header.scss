@@ -1,9 +1,17 @@
-.logo {
-  height: 5vmin;
+.pledgeball-logo {
+  height: 4vmin;
   pointer-events: none;
 
   @media only screen and (max-width: 834px) {
       height: 10vmin;
+  }
+}
+.rsk-logo {
+  height: 2vmin;
+  pointer-events: none;
+
+  @media only screen and (max-width: 834px) {
+      height: 5vmin;
   }
 }
 
