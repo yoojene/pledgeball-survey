@@ -39,7 +39,7 @@ export const getAnswerCounts = functions.https.onRequest(async (req, res) => {
   const answerColl = collection(db, "survey-answers");
 
   for (let x = 0; x < questionsList.length; x++) {
-    for (let y = 1; y <=5; y++) {
+    for (let y = 1; y <= 5; y++) {
       const qry = query(
         answerColl,
         where("questionId", "==", questionsList[x]),
@@ -47,27 +47,12 @@ export const getAnswerCounts = functions.https.onRequest(async (req, res) => {
       );
 
       const snap = await getCount(qry);
-
-      console.log("count : " + snap.data().count);
-      
       const id = questionsList[x];
-      console.log(id);
 
-      answersTotalCount.push({[`${id}`]: snap.data().count });
+      answersTotalCount.push({ [`${id}`]: snap.data().count });
     }
   }
 
-  // const qry = query(
-  //   answerColl,
-  //   where("questionId", "==", "question-1"),
-  //   where("value", "==", 1)
-  // );
-
-  // const snap = await getCount(qry);
-
-  // console.log("count : " + snap.data().count);
-  // answersTotalCount.push({ "question-one": snap.data().count });
-
-  console.log(answersTotalCount)
+  console.log(answersTotalCount);
   res.send(answersTotalCount);
 });
