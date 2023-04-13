@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Survey from "./components/Survey/Survey";
+import Chart from "./components/Chart/Chart";
 
 function App() {
   const [surveyAnswer, setSurveyAnswer] = useState<
@@ -91,6 +92,12 @@ function App() {
               </div>
             }
           />
+          <Route
+            path="/results"
+            element={
+              <Chart />
+            }>
+          </Route>
         </Routes>
       </BrowserRouter>
     </FirestoreProvider>
