@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import * as functions from "firebase-functions";
-// Importing Firestore Lite methods.
 import {
   getFirestore,
   collection,
@@ -8,7 +7,6 @@ import {
   where,
   getCount,
 } from "firebase/firestore/lite";
-
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAjXxGN2ipPe7dOUBhoB-38SUpLWPncv0M",
@@ -21,38 +19,48 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+// Start writing functions
+// https://firebase.google.com/docs/functions/typescript
 
-// // Start writing functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-export const helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", { structuredData: true });
-  response.send("Hello from Firebase!");
-});
+export const getAnswerCounts = functions
+  .region("europe-west2")
+  .https.onRequest(async (req, res) => {
+    functions.logger.info("Starting survey answer count aggregation", {
+      structuredData: true,
+    });
 
-export const getAnswerCounts = functions.https.onRequest(async (req, res) => {
-  functions.logger.info("Starting answer count aggregation", { structuredData: true });
+    const questionsList = ["question-1", "question-2", "question-3"];
+    const answersTotalCount: any = [];
 
-  const questionsList = ["question-1", "question-2", "question-3"];
-  let answersTotalCount: any = [];
+    const answerColl = collection(db, "survey-answers");
 
-  const answerColl = collection(db, "survey-answers");
+    for (let x = 0; x < questionsList.length; x++) {
+      for (let y = 1; y <= 5; y++) {
+        const qry = query(
+          answerColl,
+          where("questionId", "==", questionsList[x]),
+          where("value", "==", y)
+        );
 
-  for (let x = 0; x < questionsList.length; x++) {
-    for (let y = 1; y <= 5; y++) {
-      const qry = query(
-        answerColl,
-        where("questionId", "==", questionsList[x]),
-        where("value", "==", y)
-      );
+        const snap = await getCount(qry);
+        const id = questionsList[x];
 
-      const snap = await getCount(qry);
-      const id = questionsList[x];
-
-      answersTotalCount.push({ [`${id}`]: snap.data().count });
+        answersTotalCount.push({
+          questionNo: `${id}`,
+          answerValue: y,
+          questionCount: snap.data().count,
+        });
+      }
     }
-  }
 
-  console.log(answersTotalCount);
-  res.send(answersTotalCount);
-});
+    if (req.method === "OPTIONS") {
+      // Send response to OPTIONS requests
+      res.set("Access-Control-Allow-Methods", "GET");
+      res.set("Access-Control-Allow-Headers", "Content-Type");
+      res.set("Access-Control-Max-Age", "3600");
+      res.status(204).send("");
+    } else {
+      res.set("Access-Control-Allow-Origin", "*");
+      res.send(answersTotalCount);
+    }
+  });
