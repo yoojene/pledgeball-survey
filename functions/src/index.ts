@@ -31,7 +31,7 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 export const getAnswerCounts = functions.https.onRequest(async (req, res) => {
-  functions.logger.info("Starting count aggregation", { structuredData: true });
+  functions.logger.info("Starting answer count aggregation", { structuredData: true });
 
   const questionsList = ["question-1", "question-2", "question-3"];
   let answersTotalCount: any = [];
