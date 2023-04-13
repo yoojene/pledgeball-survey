@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore/lite';
-import { useFirestore } from 'reactfire';
-import Slider from '@mui/material/Slider';
-import './Survey.scss';
-import { useSurveyData } from '../../hooks/useSurveyData';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import React, { useState } from "react";
+import { doc, getDoc } from "firebase/firestore/lite";
+import { useFirestore } from "reactfire";
+import Slider from "@mui/material/Slider";
+import "./Survey.scss";
+import { useSurveyData } from "../../hooks/useSurveyData";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 interface SurveyProps {
-  questionFinished: (questionId: string, question: string, value: number) => void;
+  questionFinished: (
+    questionId: string,
+    question: string,
+    value: number
+  ) => void;
 }
 const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
   const [question, setQuestion] = useState<string | undefined>();
@@ -25,18 +29,18 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
 
   let document: string;
   let nextRoute: string;
-  if (location.pathname.endsWith('1')) {
-    document = 'question-1';
-    nextRoute = '/survey/2';
-  } else if (location.pathname.endsWith('2')) {
-    document = 'question-2';
-    nextRoute = '/survey/3';
+  if (location.pathname.endsWith("1")) {
+    document = "question-1";
+    nextRoute = "/survey/2";
+  } else if (location.pathname.endsWith("2")) {
+    document = "question-2";
+    nextRoute = "/survey/3";
   } else {
-    document = 'question-3';
-    nextRoute = '/finish';
+    document = "question-3";
+    nextRoute = "/finish";
   }
 
-  const questionsRef = doc(firestore, 'survey-questions', document);
+  const questionsRef = doc(firestore, "survey-questions", document);
 
   getDoc(questionsRef).then((res) => {
     setQuestion(res.data()!.question);
@@ -44,13 +48,12 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
 
   const handleOnChange = (ev: any) => {
     setSliderValue(ev.target.value);
-    setDisabled(false)
-
+    setDisabled(false);
   };
 
   return (
     <>
-      <div className="question-header"> 
+      <div className="question-header">
         <h1>{question}</h1>
       </div>
 
@@ -73,7 +76,7 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
           navigate(nextRoute);
           questionFinished(document, question!, sliderValue);
           setSliderValue(0);
-          setDisabled(true)
+          setDisabled(true);
         }}
         disabled={disabled}
       >
