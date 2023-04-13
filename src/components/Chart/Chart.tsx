@@ -163,8 +163,6 @@ const Chart: React.FC = () => {
 
     const chartDataSet = answers
       .map((ans: SurveyAnswer, idx: number) => {
-        console.log(ans);
-
         if (ans.answerValue === answerValue) {
           dataVal.push(ans.questionCount);
         }
