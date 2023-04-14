@@ -13,6 +13,8 @@ import { Bar } from "react-chartjs-2";
 import fetch from "cross-fetch";
 import { Button } from "@mui/material";
 import "./Chart.scss";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 ChartJS.register(
   BarElement,
   CategoryScale,
@@ -221,19 +223,22 @@ const Chart: React.FC = () => {
 
   return (
     <>
-      <div className="chart-title">Survey Results</div>
-      <Bar
-        data={{
-          labels: chartLabels,
-          datasets: chartDataSet,
-        }}
-        options={options}
-      ></Bar>
-      <div className="update-data-btn">
-        <Button variant="contained" size="large" onClick={getLatestData}>
-          Refresh data
-        </Button>
+      <Header></Header>
+      <div className="chart-container">
+        <Bar
+          data={{
+            labels: chartLabels,
+            datasets: chartDataSet,
+          }}
+          options={options}
+        ></Bar>
+        <div className="update-data-btn">
+          <Button variant="contained" size="large" onClick={getLatestData}>
+            Refresh data
+          </Button>
+        </div>
       </div>
+      {/* <Footer></Footer> */}
     </>
   );
 };

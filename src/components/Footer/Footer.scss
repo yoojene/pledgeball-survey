@@ -1,0 +1,33 @@
+.footer {
+  background-color: #333332;
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  height: 20vh;
+  display: flex;
+}
+
+.rsk-logo-green {
+  height: 4.5vmin;
+  pointer-events: none;
+  padding: 16px;
+}
+
+.rsk-logo-container {
+  // align-self: flex-end;
+  // flex-grow: 1;
+  // text-align: center;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.pledgeball-logo-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.charity-ref {
+  color: white;
+}

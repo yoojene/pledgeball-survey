@@ -1,29 +1,28 @@
 .pledgeball-logo {
   height: 4vmin;
   pointer-events: none;
-
+  padding: 16px;
   @media only screen and (max-width: 834px) {
-      height: 10vmin;
+    height: 10vmin;
   }
 }
 .rsk-logo {
-  height: 2vmin;
+  height: 2.5vmin;
   pointer-events: none;
+  padding: 16px;
 
   @media only screen and (max-width: 834px) {
-      height: 5vmin;
+    height: 5vmin;
   }
 }
-
-
 
 .header {
   background-color: #333332;
   min-height: 15vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   font-size: calc(10px + 2vmin);
   color: white;
 }

@@ -9,13 +9,13 @@ import {
 } from "firebase/firestore/lite";
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAjXxGN2ipPe7dOUBhoB-38SUpLWPncv0M",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "pledgeball-org.firebaseapp.com",
   databaseURL: "https://pledgeball-org.firebaseio.com",
   projectId: "pledgeball-org",
   storageBucket: "pledgeball-org.appspot.com",
-  messagingSenderId: "274541014837",
-  appId: "1:274541014837:web:456740adb9be4d928fa67c",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APPID,
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

@@ -9,18 +9,26 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Survey from "./components/Survey/Survey";
 import Chart from "./components/Chart/Chart";
+import ButtonNav from "./components/ButtonNav/ButtonNav";
 
 function App() {
   const [surveyAnswer, setSurveyAnswer] = useState<
-    { questionId: string, question: string; value: number }[] | []
+    { questionId: string; question: string; value: number }[] | []
   >([]);
 
   const app = useFirebaseApp();
 
   const firestore = getFirestore(app);
 
-  const handleQuestionFinished = (questionId: string, question: string, slider: number) => {
-    setSurveyAnswer([...surveyAnswer, ...[{ questionId, question, value: slider }]]);
+  const handleQuestionFinished = (
+    questionId: string,
+    question: string,
+    slider: number
+  ) => {
+    setSurveyAnswer([
+      ...surveyAnswer,
+      ...[{ questionId, question, value: slider }],
+    ]);
   };
 
   const handleSubmitAnswers = async () => {
@@ -47,7 +55,8 @@ function App() {
             element={
               <div className="App">
                 <Header />
-              <Survey questionFinished={handleQuestionFinished} />
+                <Survey questionFinished={handleQuestionFinished} />
+                <Footer></Footer>
               </div>
             }
           />
@@ -78,26 +87,21 @@ function App() {
                   <h1>All Done, submit your answers?</h1>
                 </div>
                 <div className="buttons">
-                  <Footer
+                  <ButtonNav
                     route={"/"}
                     title={"Submit Answers?"}
                     footerClicked={handleSubmitAnswers}
-                  ></Footer>
-                  <Footer
+                  ></ButtonNav>
+                  <ButtonNav
                     route={"/"}
                     title={"Start Again?"}
                     footerClicked={handleSurveyFinished}
-                  ></Footer>
+                  ></ButtonNav>
                 </div>
               </div>
             }
           />
-          <Route
-            path="/results"
-            element={
-              <Chart />
-            }>
-          </Route>
+          <Route path="/results" element={<Chart />}></Route>
         </Routes>
       </BrowserRouter>
     </FirestoreProvider>
