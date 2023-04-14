@@ -1,9 +1,8 @@
-import Button from "@mui/material/Button/Button";
 import React from "react";
 import pledgeball_logo from "../../assets/images/Pledgeball_logo.png";
 import rsk_logo from "../../assets/images/RSK_logo_rgb-green-cropped.png";
-
 import "./Footer.scss";
+
 const Footer: React.FC<any> = ({}) => {
   return (
     <footer>
