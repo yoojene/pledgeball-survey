@@ -8,7 +8,7 @@ import {
   Tooltip,
   Title,
 } from "chart.js";
-
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Bar } from "react-chartjs-2";
 import fetch from "cross-fetch";
 import { Button } from "@mui/material";
@@ -19,7 +19,8 @@ ChartJS.register(
   LinearScale,
   Legend,
   Tooltip,
-  Title
+  Title,
+  ChartDataLabels
 );
 
 interface SurveyAnswer {
@@ -53,15 +54,12 @@ const Chart: React.FC = () => {
     },
   ]);
 
-  console.log(process.env);
-
   useEffect(() => {
     fetch(process.env.REACT_APP_FUNCTIONS_URL!, {
       mode: "no-cors",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setAnswers(data);
       });
   }, []);
@@ -95,6 +93,29 @@ const Chart: React.FC = () => {
           },
         },
       },
+      datalabels: {
+        color: "white",
+        // display: function (ctx: any) {
+        //   console.log(ctx);
+
+        //   return ctx;
+        // },
+        font: {
+          size: 20,
+          weight: "bold" as any,
+        },
+
+        formatter: function (value: any, ctx: any) {
+          const dataSets = ctx.chart.data.datasets;
+
+          const q1s = dataSets.map((data: any) => {
+            return data.data[0];
+          });
+          const q1sSum = q1s.reduce((a: number, b: number) => a + b, 0);
+          // Calc %
+          return `${((value / q1sSum) * 100).toFixed(0)}%`;
+        },
+      },
     },
     scales: {
       x: {
@@ -104,7 +125,7 @@ const Chart: React.FC = () => {
         },
         ticks: {
           font: {
-            size: 16, //this change the font size
+            size: 16,
           },
         },
       },
@@ -135,13 +156,15 @@ const Chart: React.FC = () => {
         2,
         "rgb(53, 162, 235)"
       );
-      const chartDataSet3 = getChartDataSet(
+
+      const chartDataSet3 = getChartDataSet("question-1", 3, "rgb(1, 5, 235)");
+      const chartDataSet4 = getChartDataSet(
         "question-1",
-        3,
-        "rgb(53, 162, 55)"
+        4,
+        "rgb(53, 143, 55)"
       );
-      const chartDataSet4 = getChartDataSet("question-1", 4, "rgb(53, 253, 2)");
-      const chartDataSet5 = getChartDataSet("question-1", 5, "rgb(1, 5, 235)");
+      // const chartDataSet5 = getChartDataSet("question-1", 5, "rgb(53, 253, 2)");
+      const chartDataSet5 = getChartDataSet("question-1", 5, "rgb(0, 204, 0)");
 
       setChartDataSet([
         ...chartDataSet1,
@@ -186,7 +209,6 @@ const Chart: React.FC = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setAnswers(data);
       });
   };
@@ -202,7 +224,6 @@ const Chart: React.FC = () => {
       <div className="chart-title">Survey Results</div>
       <Bar
         data={{
-          // labels: ["Question 1", "Question 2", "Question 3"],
           labels: chartLabels,
           datasets: chartDataSet,
         }}
@@ -210,7 +231,7 @@ const Chart: React.FC = () => {
       ></Bar>
       <div className="update-data-btn">
         <Button variant="contained" size="large" onClick={getLatestData}>
-          Update data
+          Refresh data
         </Button>
       </div>
     </>
