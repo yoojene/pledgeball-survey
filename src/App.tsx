@@ -66,6 +66,7 @@ function App() {
               <div className="App">
                 <Header />
                 <Survey questionFinished={handleQuestionFinished} />
+                <Footer></Footer>
               </div>
             }
           />
@@ -75,6 +76,7 @@ function App() {
               <div className="App">
                 <Header></Header>
                 <Survey questionFinished={handleQuestionFinished} />
+                <Footer></Footer>
               </div>
             }
           />
@@ -98,6 +100,7 @@ function App() {
                     footerClicked={handleSurveyFinished}
                   ></ButtonNav>
                 </div>
+                <Footer></Footer>
               </div>
             }
           />
