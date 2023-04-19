@@ -86,7 +86,7 @@ function App() {
               <div className="App">
                 <Header></Header>
                 <div className="title">
-                  <h1>All Done, submit your answers?</h1>
+                  <h1>All done, submit your answers?</h1>
                 </div>
                 <div className="buttons">
                   <ButtonNav
