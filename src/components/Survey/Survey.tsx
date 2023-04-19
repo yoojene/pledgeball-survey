@@ -29,15 +29,19 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
 
   let document: string;
   let nextRoute: string;
+  let questionScale: string;
   if (location.pathname.endsWith("1")) {
     document = "question-1";
     nextRoute = "/survey/2";
+    questionScale = "1. Not at all concerned - 5. Extremely concerned";
   } else if (location.pathname.endsWith("2")) {
     document = "question-2";
     nextRoute = "/survey/3";
+    questionScale = "1. Strongly disagree - 5. Strongly agree";
   } else {
     document = "question-3";
     nextRoute = "/finish";
+    questionScale = "1. Strongly disagree  - 5. Strongly agree";
   }
 
   const questionsRef = doc(firestore, "survey-questions", document);
@@ -69,6 +73,7 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
           onChange={handleOnChange}
         />
       </div>
+      <div className="question-scale">{questionScale}</div>
       <Button
         variant="contained"
         size="large"

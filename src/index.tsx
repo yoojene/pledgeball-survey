@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initializeApp } from "firebase/app";
 import { FirebaseAppProvider } from "reactfire";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -21,11 +22,22 @@ initializeApp(firebaseConfig);
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Pledgeball green
+      main: "#CCFF00",
+    },
+  },
+});
 root.render(
   <React.StrictMode>
-    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <App />
-    </FirebaseAppProvider>
+    <ThemeProvider theme={theme}>
+      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+        <App />
+      </FirebaseAppProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
