@@ -8,15 +8,15 @@ export const useSurveyData = () => {
     },
     {
       value: 2,
-      label: "2. Fairly concerned",
+      label: "2",
     },
     {
       value: 3,
-      label: "3. Neither unconcerned or concerned",
+      label: "3",
     },
     {
       value: 4,
-      label: "4. Very concerned",
+      label: "4",
     },
     {
       value: 5,
@@ -37,15 +37,15 @@ export const useSurveyData = () => {
     },
     {
       value: 2,
-      label: "2. Moderately disagree",
+      label: "2",
     },
     {
       value: 3,
-      label: "3. Neither agree or disagree",
+      label: "3",
     },
     {
       value: 4,
-      label: "4. Moderately agree",
+      label: "4",
     },
     {
       value: 5,
