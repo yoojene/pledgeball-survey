@@ -1,9 +1,10 @@
 .pledgeball-logo {
-  height: 4vmin;
+  height: 8vmin;
   pointer-events: none;
   padding: 16px;
+  align-self: center;
   @media only screen and (max-width: 834px) {
-    height: 10vmin;
+    height: 11vmin;
   }
 }
 .rsk-logo {
