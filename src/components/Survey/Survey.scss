@@ -15,3 +15,15 @@
   padding-top: 5vh;
   padding-bottom: 5vh;
 }
+
+.MuiSlider-markLabelActive {
+  font-weight: 800 !important;
+}
+
+span[data-index="0"] + .MuiSlider-markLabel {
+  left: 5% !important;
+}
+span[data-index="4"] + .MuiSlider-markLabel {
+  left: 96% !important;
+}
+//

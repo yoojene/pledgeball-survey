@@ -16,13 +16,13 @@ interface SurveyProps {
 }
 const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
   const [question, setQuestion] = useState<string | undefined>();
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
-  const [sliderValue, setSliderValue] = useState<number>(0);
+  const [sliderValue, setSliderValue] = useState<number>(1);
 
-  const { getMarks } = useSurveyData();
+  const { getMarks, getOtherMarks } = useSurveyData();
 
   const firestore = useFirestore();
   const location = useLocation();
@@ -33,7 +33,8 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
   if (location.pathname.endsWith("1")) {
     document = "question-1";
     nextRoute = "/survey/2";
-    questionScale = "1. Not at all concerned - 5. Extremely concerned";
+    questionScale =
+      "1. Not at all concerned, 2. Fairly concerned, 3. Neither unconcerned or concerned, 4. Very concerned, 5. ";
   } else if (location.pathname.endsWith("2")) {
     document = "question-2";
     nextRoute = "/survey/3";
@@ -52,7 +53,7 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
 
   const handleOnChange = (ev: any) => {
     setSliderValue(ev.target.value);
-    setDisabled(false);
+    // setDisabled(false);
   };
 
   return (
@@ -64,24 +65,25 @@ const Survey: React.FC<SurveyProps> = ({ questionFinished }) => {
       <div className="question-slider">
         <Slider
           aria-label="Always visible"
-          valueLabelDisplay="auto"
+          valueLabelDisplay="off"
           defaultValue={0}
           value={sliderValue}
-          marks={getMarks()}
-          min={0}
+          marks={document === "question-1" ? getMarks() : getOtherMarks()}
+          min={1}
           max={5}
+          track={false}
           onChange={handleOnChange}
         />
       </div>
-      <div className="question-scale">{questionScale}</div>
+      {/* <div className="question-scale">{questionScale}</div> */}
       <Button
         variant="contained"
         size="large"
         onClick={() => {
           navigate(nextRoute);
           questionFinished(document, question!, sliderValue);
-          setSliderValue(0);
-          setDisabled(true);
+          setSliderValue(1);
+          // setDisabled(true);
         }}
         disabled={disabled}
       >
